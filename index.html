@@ -36,6 +36,7 @@
             <label id="lengthRangeLabel"> Length: 16</label><br>
             <input type="range" min="1" max="128" value="16" class="slider" id="lengthRange">
             <script>
+              //Event handler that updates the Length label for the slider
               var rangeInput = document.querySelector("#lengthRange");
               rangeInput.addEventListener("input", function () {
                 document.getElementById("lengthRangeLabel").textContent = 'Length: ' + rangeInput.value;
