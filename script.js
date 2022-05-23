@@ -3,10 +3,13 @@
 //Default password length of 16
 function generatePassword(criteria) {
   /*
-  A character range in ES6 would be nice, but a hardcoded string works fine.
+  A character range in ES6 would be nice, but a hardcoded string with ternary switching works fine.
   We avoid spaces and quotes in the password as those are sometimes problematic, but we could include them with an escape character.
   */
-  const characterList = (criteria.symbols ? '!#$%&()*+,-./:;<=>?@[\]^_{|}~' : '') + (criteria.uppercase ? 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' : '') + (criteria.lowercase ? 'abcdefghijklmnopqrstuvwxyz' : '') + (useNumbers ? '0123456789' : '');
+  const characterList = (criteria.symbols ? '!#$%&()*+,-./:;<=>?@[\]^_{|}~' : '')
+    + (criteria.uppercase ? 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' : '')
+    + (criteria.lowercase ? 'abcdefghijklmnopqrstuvwxyz' : '')
+    + (useNumbers ? '0123456789' : '');
   /*
   Using Math.random() for password generation would be insecure, as it does not use an entropy seeded PRNG. 
   Random values outputted from Math.random() can be predictable, resulting in insecure passwords.
@@ -41,7 +44,6 @@ function writePassword() {
     symbols: document.querySelector('#useSymbols').checked,
     numbers: document.querySelector('#useNumbers').checked
   }
-  
 
   var password = generatePassword(pwCriteria);
   var passwordText = document.querySelector("#password");
