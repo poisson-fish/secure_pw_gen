@@ -1,19 +1,19 @@
 // Assignment code here
 
 //Default password length of 16
-function generatePassword(length = 16, useSymbols, useNumbers) {
+function generatePassword(criteria) {
   /*
   A character range in ES6 would be nice, but a hardcoded string works fine.
   We avoid spaces and quotes in the password as those are sometimes problematic, but we could include them with an escape character.
   */
-  const characterList = (useSymbols ? '!#$%&()*+,-./:;<=>?@[\]^_{|}~' : '') + 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz' + (useNumbers ? '0123456789' : '');
+  const characterList = (criteria.symbols ? '!#$%&()*+,-./:;<=>?@[\]^_{|}~' : '') + (criteria.uppercase ? 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' : '') + (criteria.lowercase ? 'abcdefghijklmnopqrstuvwxyz' : '') + (useNumbers ? '0123456789' : '');
   /*
   Using Math.random() for password generation would be insecure, as it does not use an entropy seeded PRNG. 
   Random values outputted from Math.random() can be predictable, resulting in insecure passwords.
   Here we use Crypto.getRandomValues(), which provides OS entropy seeded PRNG for secure password generation.
   Read more: https://owasp.org/www-community/vulnerabilities/Insecure_Randomness
   */
-  const randomValues = new Uint32Array(length);
+  const randomValues = new Uint32Array(criteria.length);
   self.crypto.getRandomValues(randomValues); //Pass by reference, randomValues is populated
   /*
   Map the randomValues array (converted to generic typed array) with a lambda that takes the modulus of the random 32bit unsigned integer and the length of the 
@@ -34,11 +34,16 @@ var generateBtn = document.querySelector("#generate");
 // Write password to the #password input
 function writePassword() {
 
-  var pwLength = parseInt(document.querySelector("#lengthRange").value);
-  var useSymbols = document.querySelector('#useSymbols').checked;
-  var useNumbers = document.querySelector('#useNumbers').checked;
+  const pwCriteria = {
+    length: parseInt(document.querySelector("#lengthRange").value),
+    uppercase: document.querySelector('#useUppercase').checked,
+    lowercase: document.querySelector('#useLowercase').checked,
+    symbols: document.querySelector('#useSymbols').checked,
+    numbers: document.querySelector('#useNumbers').checked
+  }
+  
 
-  var password = generatePassword(pwLength,useSymbols,useNumbers);
+  var password = generatePassword(pwCriteria);
   var passwordText = document.querySelector("#password");
 
   passwordText.value = password;
