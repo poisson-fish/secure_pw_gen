@@ -2,6 +2,10 @@
 
 //Default password length of 16
 function generatePassword(criteria) {
+  if(!criteria.symbols && !criteria.uppercase && !criteria.lowercase && !criteria.numbers){
+    alert("You must select at least one password criterion!");
+    return;
+  }
   /*
   A character range in ES6 would be nice, but a hardcoded string with ternary switching works fine.
   We avoid spaces and quotes in the password as those are sometimes problematic, but we could include them with an escape character.
@@ -9,7 +13,7 @@ function generatePassword(criteria) {
   const characterList = (criteria.symbols ? '!#$%&()*+,-./:;<=>?@[\]^_{|}~' : '')
     + (criteria.uppercase ? 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' : '')
     + (criteria.lowercase ? 'abcdefghijklmnopqrstuvwxyz' : '')
-    + (useNumbers ? '0123456789' : '');
+    + (criteria.numbers ? '0123456789' : '');
   /*
   Using Math.random() for password generation would be insecure, as it does not use an entropy seeded PRNG. 
   Random values outputted from Math.random() can be predictable, resulting in insecure passwords.
@@ -47,9 +51,7 @@ function writePassword() {
 
   var password = generatePassword(pwCriteria);
   var passwordText = document.querySelector("#password");
-
-  passwordText.value = password;
-
+  if(password.length > 0) passwordText.value = password;
 }
 
 // Add event listener to generate button
