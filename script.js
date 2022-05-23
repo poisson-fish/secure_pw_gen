@@ -1,12 +1,12 @@
 // Assignment code here
 
 //Default password length of 16
-function generatePassword(length = 16) {
+function generatePassword(length = 16, useSymbols, useNumbers) {
   /*
   A character range in ES6 would be nice, but a hardcoded string works fine.
   We avoid spaces and quotes in the password as those are sometimes problematic, but we could include them with an escape character.
   */
-  const characterList = '!#$%&()*+,-./:;<=>?@[\]^_{|}~ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  const characterList = (useSymbols ? '!#$%&()*+,-./:;<=>?@[\]^_{|}~' : '') + 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz' + (useNumbers ? '0123456789' : '');
   /*
   Using Math.random() for password generation would be insecure, as it does not use an entropy seeded PRNG. 
   Random values outputted from Math.random() can be predictable, resulting in insecure passwords.
@@ -33,7 +33,12 @@ var generateBtn = document.querySelector("#generate");
 
 // Write password to the #password input
 function writePassword() {
-  var password = generatePassword();
+
+  var pwLength = parseInt(document.querySelector("#lengthRange").value);
+  var useSymbols = document.querySelector('#useSymbols').checked;
+  var useNumbers = document.querySelector('#useNumbers').checked;
+
+  var password = generatePassword(pwLength,useSymbols,useNumbers);
   var passwordText = document.querySelector("#password");
 
   passwordText.value = password;
