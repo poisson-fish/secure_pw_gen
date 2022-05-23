@@ -135,3 +135,8 @@ button[disabled] {
     font-size: 0.8rem;
   }
 }
+
+.options {
+  border: 2px dashed #c0c7cf;
+  text-align: center;
+}
