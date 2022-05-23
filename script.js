@@ -1,6 +1,5 @@
 // Assignment code here
 
-//Default password length of 16
 function generatePassword(criteria) {
   if(!criteria.symbols && !criteria.uppercase && !criteria.lowercase && !criteria.numbers){
     alert("You must select at least one password criterion!");
