@@ -51,7 +51,7 @@ function writePassword() {
 
   var password = generatePassword(pwCriteria);
   var passwordText = document.querySelector("#password");
-  if(password.length > 0) passwordText.value = password;
+  if(password) passwordText.value = password;
 }
 
 // Add event listener to generate button
