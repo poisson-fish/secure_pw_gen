@@ -25,7 +25,7 @@ function generatePassword(criteria) {
   Map the randomValues array (converted to generic typed array) with a lambda that indexes characterList with the modulus of the random 32bit unsigned integer and the length of the 
   characterList for a truly random character selection.
   Note: In Typescript we could probably specify the type of the map returned array with an explicit cast, but in ES6 we 
-  have to construct a generic array from the typed one and rely on an implicit cast in the map function.
+  have to construct a generic array from the typed one and rely on untyped storage.
   If we didn't, the map result would be implicitly casted to the Uint32Array type which isn't what we want.
   */
   return Array.from(randomValues) //Construct a generic array from randomValues
