@@ -30,8 +30,8 @@ function generatePassword(criteria) {
   */
   return Array.from(randomValues) //Construct a generic array from randomValues
     .map(rnum => //Map the generic array across its random values
-      characterList[rnum % characterList.length] //Returns a string type which the constructed generic array copy can hold sensibly
-    ).join(''); //Join the string array of characters into a string
+      characterList[rnum % characterList.length] //Indexes to a string type which the constructed generic array copy can hold sensibly
+    ).join(''); //Join the string array into a string
 }
 
 // Get references to the #generate element
